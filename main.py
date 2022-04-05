@@ -29,8 +29,10 @@ def count_values(a, k):
     >>> count_values([2,2,1,0,1,0,1,3], 3)
     [2, 3, 2, 1]
     """
-    ###TODO
-    pass
+    out = [0] * (k+1)
+    for element in a:
+      out[element] += 1
+    return out
 
 def test_count_values():
     assert count_values([2,2,1,0,1,0,1,3], 3) == [2, 3, 2, 1]
@@ -46,8 +48,12 @@ def get_positions(counts):
     >>> get_positions([2, 3, 2, 1])
     [0, 2, 5, 7]    
     """
-    ###TODO
-    pass
+    list = scan(plus,0,counts)
+    outlist = list[0]
+    out = outlist[:-1]
+    out.insert(0,0)
+    return out
+    
     
 def test_get_positions():
     assert get_positions([2, 3, 2, 1]) == [0, 2, 5, 7]
@@ -66,8 +72,13 @@ def construct_output(a, positions):
     >>> construct_output([2,2,1,0,1,0,1,3], [0, 2, 5, 7])
     [0,0,1,1,1,2,2,3]    
     """
-    ###TODO
-    pass
+    out = [0]*(len(a))
+    for element in a:
+      x = positions[element]
+      out[x] = element
+      positions[element] += 1
+    return out
+    
 
 def test_construct_output():
     assert construct_output([2,2,1,0,1,0,1,3], [0, 2, 5, 7]) == [0,0,1,1,1,2,2,3]
@@ -85,11 +96,17 @@ def test_count_values_mr():
     assert count_values_mr([2,2,1,0,1,0,1,3], 3) == [2, 3, 2, 1]
 
 def count_map(value):
-    ###TODO
+    count_map = []
+    count_map.append((value,1))
+    return count_map
     pass
 
 def count_reduce(group):
-    ###TODO
+    count_reduce = []
+    tup = reduce(plus,0,group[1])
+    count_reduce.append(group[0])
+    count_reduce.append(tup)
+    return tuple(count_reduce)
     pass
 
 
@@ -111,7 +128,7 @@ def collect(pairs):
 def plus(x,y):
     # done. 
     return x + y
-
+  
 
 def scan(f, id_, a):
     # done. 
